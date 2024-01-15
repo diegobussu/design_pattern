@@ -20,3 +20,11 @@ body {
 #createProduct:hover {
     background-color: antiquewhite;
 }
+
+.draggable {
+    cursor: grab;
+}
+  
+.draggable:active {
+cursor: grabbing;
+}
