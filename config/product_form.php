@@ -69,7 +69,7 @@ if (!empty($_POST)) {
     if (isset($_POST['form']) && $_POST['form'] === 'delete') {
         $deleteId = $_POST['delete_id'];
 
-        $modelToDelete = getProductById($deleteId);
+        $productToDelete = $stock->getProductById($deleteId);
         $modelName = strtolower($productToDelete->getName());
 
         if (strpos($modelToDelete, 'iphone') !== false) {
