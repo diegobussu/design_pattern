@@ -1,5 +1,5 @@
 <?php
-require_once('factory.php');
+require('config/config.php');
 ?>
 <!DOCTYPE html>
 <html>
