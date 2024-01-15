@@ -21,10 +21,26 @@ if (!empty($_POST)) {
             $error = true;
             flash_in('error', 'La capacité est requise.');
         }
+        
+        if (empty($_POST['release_year'])) {
+            $error = true;
+            flash_in('error', 'La date de sortie est requise.');
+        }
+
+        if (!is_numeric($_POST['capacity']) || $_POST['capacity'] < 1 || $_POST['capacity'] > 1000) {
+            $error = true;
+            flash_in('error', 'La capacité doit être un nombre compris entre 1 et 1000.');
+        }
 
         if (strlen($_POST['model']) > 30 || strlen($_POST['color']) > 30) {
             $error = true;
             flash_in('error', 'Le contenu est trop long, le nom et la couleur doit etre compris entre 1 et 30 caractères.');
+        }
+
+        $timestamp = strtotime($_POST['release_year']);
+        if ($timestamp === false || $timestamp === -1) {
+            $error = true;
+            flash_in('error', 'La date de sortie n\'est pas valide.');
         }
 
         if (!$error) {
