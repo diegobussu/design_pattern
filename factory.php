@@ -1,37 +1,37 @@
 <?php
 
-// Interface représentant le produit que la fabrique va créer
+// Interface représentant le produit que le stock va gérer
 interface Product
 {
     public function getName(): string;
 }
 
-// Implémentation concrète de l'interface Product
-class ConcreteProduct implements Product
+// Interface Product
+class ProductInfos implements Product
 {
     public function getName(): string
     {
-        return "Nom du produit";
+        return "Iphone 15";
     }
 }
 
-// Interface de la fabrique
-interface Factory
+// Interface du stock Apple
+interface Apple
 {
     public function createProduct(): Product;
 }
 
 // Implémentation concrète de la fabrique
-class ConcreteFactory implements Factory
+class AppleStock implements Apple
 {
     public function createProduct(): Product
     {
-        return new ConcreteProduct();
+        return new ProductInfos();
     }
 }
 
-// Utilisation de la fabrique
-$factory = new ConcreteFactory();
+// Utilisation du stock Apple
+$factory = new AppleStock();
 $product = $factory->createProduct();
 
 echo $product->getName(); // Affiche le nom du produit
