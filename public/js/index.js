@@ -45,4 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = "none"; 
     });
 
+    setTimeout(function() {
+        document.querySelectorAll(".alert").forEach(function(alert) {
+            alert.style.display = "none";
+        });
+    }, 2000);
 });

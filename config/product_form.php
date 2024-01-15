@@ -17,6 +17,11 @@ if (!empty($_POST)) {
             flash_in('error', 'La couleur est requise.');
         }
 
+        if (empty($_POST['capacity'])) {
+            $error = true;
+            flash_in('error', 'La capacité est requise.');
+        }
+
         if (strlen($_POST['model']) > 30 || strlen($_POST['color']) > 30) {
             $error = true;
             flash_in('error', 'Le contenu est trop long, le nom et la couleur doit etre compris entre 1 et 30 caractères.');
