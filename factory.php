@@ -29,11 +29,4 @@ class AppleStock implements Apple
         return new ProductInfos();
     }
 }
-
-// Utilisation du stock Apple
-$factory = new AppleStock();
-$product = $factory->InfosProduct();
-
-echo $product->getName(); // Affiche le nom du produit
-
 ?>

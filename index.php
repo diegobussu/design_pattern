@@ -1,4 +1,5 @@
 <?php
+require_once('factory.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,12 @@
         <title>Accueil</title>
     </head>
     <body>
-        <?php include('partials/header.php'); ?>
+        <?php include('partials/header.php'); ?><br>
+
+        <?php 
+            $factory = new AppleStock();
+            $product = $factory->InfosProduct();
+            echo $product->getName(); 
+        ?>
     </body>
 </html>
