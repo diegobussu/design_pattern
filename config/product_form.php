@@ -44,18 +44,20 @@ if (!empty($_POST)) {
         }
 
         if (!$error) {
-            $add = $db->prepare('INSERT INTO products (model, release_year, color, capacity) VALUES (:model, :release_year, :color, :capacity)');
-            $data = [
-                ':model' => $_POST['model'],
-                ':release_year' => $_POST['release_year'],
-                ':color' => $_POST['color'],
-                ':capacity' => $_POST['capacity']
-            ];
-            $add->execute($data);
+            $modelName = strtolower($_POST['model']);
+            $stock = null;
 
-            flash_in('success', 'Produit ajouté !');
-            header('Location: index.php');
-            exit();
+            if (strpos($modelName, 'iphone') !== false) {
+                $stock = new iPhoneStock();
+                $stock->addProduct($_POST['model'], $_POST['color'], (int)$_POST['capacity'], $_POST['release_year']);
+            } elseif (strpos($modelName, 'ipad') !== false) {
+                $stock = new iPadStock();
+                $stock->addProduct($_POST['model'], $_POST['color'], (int)$_POST['capacity'], $_POST['release_year']);
+            } else {
+                flash_in('error', 'Modèle non pris en charge.');
+                header('Location: index.php');
+                exit();
+            }
         }
     }
 }
