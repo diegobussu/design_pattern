@@ -7,3 +7,5 @@
 <nav>
     <a href="index.php">Accueil</a>
 </nav>
+
+<?php flash_out(); ?>

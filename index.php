@@ -46,6 +46,7 @@ $read->execute();
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
             <h2>Ajouter un produit</h2>
+            <form method="POST" action="<?= $_SERVER['PHP_SELF'];?>">
                 <div class="form-group">
                     <label for="model">Modèle :</label>
                     <input type="text" id="model" name="model"></input><br><br>
@@ -61,7 +62,7 @@ $read->execute();
                 </div>
 
                 <div class="form-group">
-                    <button id="validProduct">Valider</button>
+                    <button type="submit" name="form" value="product">Valider</button>
                 </div>
             </form>
         </div>

@@ -1,5 +1,7 @@
 <?php 
 
+session_start();
+
 define("SQL_HOST","localhost");
 define("SQL_USER","root");
 define("SQL_PASS","root"); // root for mac 
@@ -11,5 +13,7 @@ try{
     die('Erreur : ' . $e->getMessage());
 }
 
+require('functions.php');
+require('product_form.php');
 require('factory.php');
 
