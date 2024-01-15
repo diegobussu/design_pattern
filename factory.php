@@ -11,7 +11,7 @@ class ConcreteProduct implements Product
 {
     public function getName(): string
     {
-        return "Product";
+        return "Nom du produit";
     }
 }
 
