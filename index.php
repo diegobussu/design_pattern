@@ -12,13 +12,21 @@ require_once('factory.php');
         <?php include('partials/header.php'); ?><br>
 
         <?php 
-            $iphoneFactory = new iPhoneStock();
-            $iphone = $iphoneFactory->InfosProduct();
-            echo $iphone->getName(); // Affiche "iPhone"
+            $iphoneModels = array();
 
-            $ipadFactory = new iPadStock();
-            $ipad = $ipadFactory->InfosProduct();
-            echo $ipad->getName();    
+            $iphoneFactory = new iPhoneStock("11");
+            $iphone11 = $iphoneFactory->InfosProduct();
+            $iphoneModels[] = $iphone11->getName();
+
+            echo "Modèles d'iPhone : " . implode(", ", $iphoneModels);
+
+            echo "<br>";
+            
+            $ipadFactory = new iPadStock("4");
+            $ipad4 = $ipadFactory->InfosProduct();
+            $ipadModels[] = $ipad4->getName();
+
+            echo "Modèles d'iPad : " . implode(", ", $ipadModels);
         ?>
     </body>
 </html>

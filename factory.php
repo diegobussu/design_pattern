@@ -9,18 +9,30 @@ interface Product
 // Class for Iphone product
 class Iphone implements Product
 {
+    private $model;
+
+    public function __construct ($model) {
+        $this->model = $model;
+    }
+
     public function getName(): string
     {
-        return "Iphone";
+        return "Iphone" . $this->model;
     }
 }
 
 // Class for Iphone product
 class Ipad implements Product
 {
+    private $model;
+
+    public function __construct ($model) {
+        $this->model = $model;
+    }
+
     public function getName(): string
     {
-        return "Ipad";
+        return "Iphone" . $this->model;
     }
 }
 
@@ -32,17 +44,29 @@ interface Apple
 
 class iPhoneStock implements Apple
 {
+    private $model;
+
+    public function __construct($model) {
+        $this->model = $model;
+    }
+
     public function InfosProduct(): Product
     {
-        return new Iphone();
+        return new Iphone($this->model);
     }
 }
 
 class iPadStock implements Apple
 {
+    private $model;
+
+    public function __construct($model) {
+        $this->model = $model;
+    }
+
     public function InfosProduct(): Product
     {
-        return new Ipad();
+        return new Ipad($this->model);
     }
 }
 ?>
