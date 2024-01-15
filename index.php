@@ -39,6 +39,7 @@ $read->execute();
                     <td>
                         <form method="POST" action="<?= $_SERVER['PHP_SELF'];?>">
                             <input type="hidden" name="delete_id" value="<?= $data['id']; ?>">
+                            <input type="hidden" name="model" value="<?= $data['model']; ?>">
                             <button type="submit" name="form" value="delete">x</button>
                         </form>
                     </td>

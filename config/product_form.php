@@ -67,14 +67,15 @@ if (!empty($_POST)) {
 
     // SUPPRIMER UN PRODUIT
     if (isset($_POST['form']) && $_POST['form'] === 'delete') {
+        
         $deleteId = $_POST['delete_id'];
 
-        $productToDelete = $stock->getProductById($deleteId);
-        $modelName = strtolower($productToDelete->getName());
+        $modelName = strtolower($_POST['model']);
+        $stock = null;
 
-        if (strpos($modelToDelete, 'iphone') !== false) {
+        if (strpos($modelName, 'iphone') !== false) {
             $stock = new iPhoneStock();
-        } elseif (strpos($modelToDelete, 'ipad') !== false) {
+        } elseif (strpos($modelName, 'ipad') !== false) {
             $stock = new iPadStock();
         } else {
             flash_in('error', 'Modèle non pris en charge.');
