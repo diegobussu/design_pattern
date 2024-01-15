@@ -18,13 +18,13 @@ class ProductInfos implements Product
 // Interface du stock Apple
 interface Apple
 {
-    public function createProduct(): Product;
+    public function InfosProduct(): Product;
 }
 
 // Implémentation concrète de la fabrique
 class AppleStock implements Apple
 {
-    public function createProduct(): Product
+    public function InfosProduct(): Product
     {
         return new ProductInfos();
     }
@@ -32,7 +32,7 @@ class AppleStock implements Apple
 
 // Utilisation du stock Apple
 $factory = new AppleStock();
-$product = $factory->createProduct();
+$product = $factory->InfosProduct();
 
 echo $product->getName(); // Affiche le nom du produit
 
