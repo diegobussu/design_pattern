@@ -1,5 +1,9 @@
 <?php
 require('config/config.php');
+
+$read = $db->prepare('SELECT * FROM products');
+$read->execute();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,30 +15,28 @@ require('config/config.php');
     <body>
         <?php include('partials/header.php'); ?><br>
 
-        <?php 
-            $iphones = [];
-            $release_year_iphones = "2022";
-            for ($i = 1; $i < 14; $i++) {
-                $iphoneFactory = new iPhoneStock($i, $release_year_iphones);
-                $iphone11 = $iphoneFactory->InfosProduct();
-                $iphones[] = $iphone11->getName() . " (" . $iphone11->getReleaseYear() . ")";
-            }
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Couleur</th>
+                    <th>Année de sortie</th>
+                    <th>Capacité</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
+                <tr>
+                    <td><?= $data['id'] ?></td>
+                    <td><?= $data['model'] ?></td>
+                    <td><?= $data['color'] ?></td>
+                    <td><?= $data['release_year'] ?></td>
+                    <td><?= $data['capacity'] ?></td>
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
 
-            // Affichage des models
-            echo "Modèles d'iPhone : " . implode(", ", $iphones);
-
-            echo "<br><br>"; //Sauts de lignes
-
-            $ipads = [];
-            $release_year_ipad = "2022";
-            for ($j = 1; $j < 14; $j++) {
-                $ipadFactory = new iPadStock($j, $release_year_ipad);
-                $ipad4 = $ipadFactory->InfosProduct();
-                $ipads[] = $ipad4->getName() . " (" . $ipad4->getReleaseYear() . ")";
-            }
-
-            // Affichage des models
-            echo "Modèles d'iPad : " . implode(", ", $ipads);
-        ?>
     </body>
 </html>
