@@ -10,7 +10,12 @@ function flash_in($type, $message) {
 function flash_out() {
     if (!empty($_SESSION['message'])) {
         foreach ($_SESSION['message'] as $m) {
-            echo '<p class="alert alert-danger">' . $m[1] . '</p>';
+            $alertClass = 'alert-danger';
+            if ($m[0] === 'success') {
+                $alertClass = 'alert-success';
+            }
+
+            echo '<p class="alert ' . $alertClass . '">' . $m[1] . '</p>';
         }
     }
     $_SESSION['message'] = [];
