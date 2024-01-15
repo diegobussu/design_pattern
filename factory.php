@@ -6,12 +6,21 @@ interface Product
     public function getName(): string;
 }
 
-// Interface Product
-class ProductInfos implements Product
+// Class for Iphone product
+class Iphone implements Product
 {
     public function getName(): string
     {
-        return "Iphone 15";
+        return "Iphone";
+    }
+}
+
+// Class for Iphone product
+class Ipad implements Product
+{
+    public function getName(): string
+    {
+        return "Ipad";
     }
 }
 
@@ -21,12 +30,19 @@ interface Apple
     public function InfosProduct(): Product;
 }
 
-// Implémentation concrète de la fabrique
-class AppleStock implements Apple
+class iPhoneStock implements Apple
 {
     public function InfosProduct(): Product
     {
-        return new ProductInfos();
+        return new Iphone();
+    }
+}
+
+class iPadStock implements Apple
+{
+    public function InfosProduct(): Product
+    {
+        return new Ipad();
     }
 }
 ?>
