@@ -34,6 +34,6 @@ class ConcreteFactory implements Factory
 $factory = new ConcreteFactory();
 $product = $factory->createProduct();
 
-echo $product->getName(); // Affiche "Concrete Product"
+echo $product->getName(); // Affiche le nom du produit
 
 ?>
