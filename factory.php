@@ -4,20 +4,28 @@
 interface Product
 {
     public function getName(): string;
+    public function getReleaseYear(): string;
 }
 
 // Class for Iphone product
 class Iphone implements Product
 {
     private $model;
+    private $release_year;
 
-    public function __construct ($model) {
+    public function __construct ($model, $release_year) {
         $this->model = $model;
+        $this->release_year = $release_year;
     }
 
     public function getName(): string
     {
         return "Iphone " . $this->model;
+    }
+
+    public function getReleaseYear(): string
+    {
+        return "Année de sortie " . $this->release_year;
     }
 }
 
@@ -25,14 +33,21 @@ class Iphone implements Product
 class Ipad implements Product
 {
     private $model;
+    private $release_year;
 
-    public function __construct ($model) {
+    public function __construct ($model, $release_year) {
         $this->model = $model;
+        $this->release_year = $release_year;
     }
 
     public function getName(): string
     {
         return "Ipad " . $this->model;
+    }
+
+    public function getReleaseYear(): string
+    {
+        return "Année de sortie " . $this->release_year;
     }
 }
 
@@ -45,28 +60,32 @@ interface Apple
 class iPhoneStock implements Apple
 {
     private $model;
+    private $release_year;
 
-    public function __construct($model) {
+    public function __construct ($model, $release_year) {
         $this->model = $model;
+        $this->release_year = $release_year;
     }
 
     public function InfosProduct(): Product
     {
-        return new Iphone($this->model);
+        return new Iphone($this->model, $this->release_year);
     }
 }
 
 class iPadStock implements Apple
 {
     private $model;
+    private $release_year;
 
-    public function __construct($model) {
+    public function __construct ($model, $release_year) {
         $this->model = $model;
+        $this->release_year = $release_year;
     }
 
     public function InfosProduct(): Product
     {
-        return new Ipad($this->model);
+        return new Ipad($this->model, $this->release_year);
     }
 }
 ?>
