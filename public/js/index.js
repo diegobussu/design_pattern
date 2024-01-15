@@ -11,13 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let isDragging = false;
     let offset = { x: 0, y: 0 };
     
-    document.addEventListener("mouseleave", () => {
-        if (isDragging) {
-            isDragging = false;
-            modal.style.cursor = "grab";
-        }
-    });
-    
     modal.addEventListener("mousedown", (e) => {
         isDragging = true;
         offset.x = e.clientX - modal.getBoundingClientRect().left;
@@ -35,7 +28,20 @@ document.addEventListener('DOMContentLoaded', function() {
         isDragging = false;
         modal.style.cursor = "grab";
     });
+
+    document.addEventListener("mouseleave", () => {
+        if (isDragging) {
+            isDragging = false;
+            modal.style.cursor = "grab";
+        }
+    });
     
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none"; 
+        }
+    });
+
     validProduct.addEventListener("click", (event) => {
         if (!validateForm()) {
             event.preventDefault();

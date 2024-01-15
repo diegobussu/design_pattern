@@ -40,28 +40,28 @@ $read->execute();
             </tbody>
         </table>
 
-        <button id="createProduct">Ajouter un produit</button>
+        <button id="createProduct" class="btn-save">Ajouter un produit</button>
 
         <div class="modal draggable" id="createModal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
             <h2>Ajouter un produit</h2>
                 <div class="form-group">
-                <label for="model">Modèle :</label>
-                <input type="text" id="model" name="model"></label>
+                    <label for="model">Modèle :</label>
+                    <input type="text" id="model" name="model"></input><br><br>
 
-                <label for="color">Couleur :</label>
-                <input type="text" id="color" name="color"></label>
+                    <label for="color">Couleur :</label>
+                    <input type="text" id="color" name="color"></input><br><br>
 
-                <label for="capacity">Capacité (en giga) :</label>
-                <input type="number" id="capacity" name="capacity"></label>
+                    <label for="capacity">Capacité (en giga) :</label>
+                    <input type="number" id="capacity" name="capacity"></input><br><br>
 
-                <label for="release_year">Année de sortie :</label>
-                <input type="date" id="release_year" name="release_year"></label>
+                    <label for="release_year">Année de sortie :</label>
+                    <input type="date" id="release_year" name="release_year"></input>
                 </div>
 
                 <div class="form-group">
-                    <button id="validProduct" class="btn-save">Valider</button>
+                    <button id="validProduct">Valider</button>
                 </div>
             </form>
         </div>
