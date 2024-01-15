@@ -17,7 +17,7 @@ class Iphone implements Product
 
     public function getName(): string
     {
-        return "Iphone" . $this->model;
+        return "Iphone " . $this->model;
     }
 }
 
@@ -32,7 +32,7 @@ class Ipad implements Product
 
     public function getName(): string
     {
-        return "Iphone" . $this->model;
+        return "Ipad " . $this->model;
     }
 }
 

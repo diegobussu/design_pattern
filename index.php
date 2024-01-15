@@ -13,18 +13,20 @@ require_once('factory.php');
 
         <?php 
             $iphoneModels = array();
-
-            $iphoneFactory = new iPhoneStock("11");
-            $iphone11 = $iphoneFactory->InfosProduct();
-            $iphoneModels[] = $iphone11->getName();
+            for ($i = 1; $i < 14; $i++) {
+                $iphoneFactory = new iPhoneStock($i);
+                $iphone11 = $iphoneFactory->InfosProduct();
+                $iphoneModels[] = $iphone11->getName();
+            }
 
             echo "Modèles d'iPhone : " . implode(", ", $iphoneModels);
 
-            echo "<br>";
-            
-            $ipadFactory = new iPadStock("4");
-            $ipad4 = $ipadFactory->InfosProduct();
-            $ipadModels[] = $ipad4->getName();
+            echo "<br><br>";
+            for ($j = 1; $j < 14; $j++) {
+                $ipadFactory = new iPadStock($j);
+                $ipad4 = $ipadFactory->InfosProduct();
+                $ipadModels[] = $ipad4->getName();
+            }
 
             echo "Modèles d'iPad : " . implode(", ", $ipadModels);
         ?>
