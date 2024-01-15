@@ -38,5 +38,6 @@ $read->execute();
             </tbody>
         </table>
 
+        <button id="createProduct">Ajouter un produit</button>
     </body>
 </html>
