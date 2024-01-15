@@ -90,6 +90,7 @@ interface Apple
     public function getProduct(string $productName): ?Product;
     public function updateProduct(string $productName, Product $updatedProduct): void;
     public function deleteProduct(string $productName): void;
+    public function getProductById(int $productId): ?Product;
 }
 
 class iPhoneStock implements Apple
@@ -117,6 +118,16 @@ class iPhoneStock implements Apple
     public function deleteProduct(string $productName): void
     {
         unset($this->products[$productName]);
+    }
+
+    public function getProductById(int $productId): ?Product
+    {
+        foreach ($this->products as $product) {
+            if ($product->getId() === $productId) {
+                return $product;
+            }
+        }
+        return null;
     }
 }
 
@@ -146,6 +157,15 @@ class iPadStock implements Apple
     {
         unset($this->products[$productName]);
     }
-}
 
+    public function getProductById(int $productId): ?Product
+    {
+        foreach ($this->products as $product) {
+            if ($product->getId() === $productId) {
+                return $product;
+            }
+        }
+        return null;
+    }
+}
 ?>

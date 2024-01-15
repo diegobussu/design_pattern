@@ -13,7 +13,7 @@ try{
     die('Erreur : ' . $e->getMessage());
 }
 
+require('factory.php');
 require('functions.php');
 require('product_form.php');
-require('factory.php');
 

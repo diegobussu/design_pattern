@@ -49,16 +49,44 @@ if (!empty($_POST)) {
 
             if (strpos($modelName, 'iphone') !== false) {
                 $stock = new iPhoneStock();
-                $stock->addProduct($_POST['model'], $_POST['color'], (int)$_POST['capacity'], $_POST['release_year']);
             } elseif (strpos($modelName, 'ipad') !== false) {
                 $stock = new iPadStock();
-                $stock->addProduct($_POST['model'], $_POST['color'], (int)$_POST['capacity'], $_POST['release_year']);
             } else {
                 flash_in('error', 'Modèle non pris en charge.');
                 header('Location: index.php');
                 exit();
             }
+
+            $stock->addProduct($_POST['model'], $_POST['color'], (int)$_POST['capacity'], $_POST['release_year']);
+
+            flash_in('success', 'Produit ajouté !');
+            header('Location: index.php');
+            exit();
         }
+    }
+
+    // SUPPRIMER UN PRODUIT
+    if (isset($_POST['form']) && $_POST['form'] === 'delete') {
+        $deleteId = $_POST['delete_id'];
+
+        $modelToDelete = getProductById($deleteId);
+        $modelName = strtolower($productToDelete->getName());
+
+        if (strpos($modelToDelete, 'iphone') !== false) {
+            $stock = new iPhoneStock();
+        } elseif (strpos($modelToDelete, 'ipad') !== false) {
+            $stock = new iPadStock();
+        } else {
+            flash_in('error', 'Modèle non pris en charge.');
+            header('Location: index.php');
+            exit();
+        }
+
+        $stock->deleteProduct($deleteId);
+
+        flash_in('success', 'Produit supprimé !');
+        header('Location: index.php');
+        exit();
     }
 }
 ?>

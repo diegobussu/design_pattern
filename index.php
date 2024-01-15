@@ -25,6 +25,7 @@ $read->execute();
                     <th>Couleur</th>
                     <th>Année de sortie</th>
                     <th>Capacité</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,12 @@ $read->execute();
                     <td><?= $data['color'] ?></td>
                     <td><?= $data['release_year'] ?></td>
                     <td><?= $data['capacity'] ?></td>
+                    <td>
+                        <form method="POST" action="<?= $_SERVER['PHP_SELF'];?>">
+                            <input type="hidden" name="delete_id" value="<?= $data['id']; ?>">
+                            <button type="submit" name="form" value="delete">x</button>
+                        </form>
+                    </td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>
