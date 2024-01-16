@@ -1,9 +1,10 @@
-
 body {
     font-family: 'Arial', sans-serif;
     margin: 20px;
+    align-items: center;
+    text-align: center;
 }
-
+ 
 h1 {
     color: #333;
     background-color:bisque;

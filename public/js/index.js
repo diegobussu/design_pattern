@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() { 
+
+    // Gestion de la fênetre de création d'un produit
     const modal = document.getElementById("createModal");
     const createProduct = document.getElementById("createProduct");
     const closeModal = document.getElementById("closeModal");
@@ -50,4 +52,16 @@ document.addEventListener('DOMContentLoaded', function() {
             alert.style.display = "none";
         });
     }, 2000);
+
+    // Gestion du stock par produit
+    const removeOne = document.getElementById("removeOne");
+    const addOne = document.getElementById("addOne");
+
+    removeOne.addEventListener("click", () => {
+        alert("Action non disponible.");
+    });
+
+    addOne.addEventListener("click", () => {
+        alert("Action non disponible.");
+    });
 });

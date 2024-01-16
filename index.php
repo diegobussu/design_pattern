@@ -12,7 +12,6 @@ $read->execute();
         <link rel="stylesheet" type="text/css" href="public/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="public/css/styles.css"/>
         <script type="text/javascript" src="public/js/index.js"></script>
-        <title>Accueil</title>
     </head>
     <body>
         <?php include('partials/header.php'); ?><br>
@@ -38,13 +37,17 @@ $read->execute();
                     $product = new Ipad($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
                 }
                 ?>
-                <tr>
+                <tr id="product<?= $product->getId(); ?>">
                     <td><?= $product->getId() ?></td>
                     <td><?= $product->getName() ?></td>
                     <td><?= $product->getColor() ?></td>
                     <td><?= $product->getReleaseYear() ?></td>
                     <td><?= $product->getCapacity() ?></td>
-                    <td><?= $product->getInStock() ?></td>
+                    <td>
+                        <button id="removeOne">+</button>
+                        <span id="stock<?= $product->getId(); ?>"><?= $product->getInStock() ?></span>
+                        <button id="addOne">-</button>
+                    </td>
                     <td>
                         <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">
                             <input type="hidden" name="delete_id" value="<?= $product->getId(); ?>">

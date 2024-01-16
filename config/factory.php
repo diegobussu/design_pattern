@@ -117,6 +117,9 @@ class Ipad implements Product
 interface Apple
 {
     public function addProduct(string $model, string $color, int $capacity, string $releaseYear, int $in_stock): void;
+    public function deleteProduct(int $productId): void;
+    public function addOneToStock(int $productId): void;
+    public function removeOneToStock(int $productId): void;
 }
 
 class iPhoneStock implements Apple
@@ -138,6 +141,20 @@ class iPhoneStock implements Apple
     public function deleteProduct(int $productId): void
     {
         $db = $this->pdo->prepare("DELETE FROM products WHERE id = :id");
+        $db->execute([':id' => $productId]);
+    }
+
+    public function addOneToStock(int $productId): void
+    {
+        $db = $this->pdo->prepare("UPDATE products SET in_stock = in_stock + 1 WHERE id = :id");
+
+        $db->execute([':id' => $productId]);
+    }
+
+    public function removeOneToStock(int $productId): void
+    {
+        $db = $this->pdo->prepare("UPDATE products SET in_stock = in_stock - 1 WHERE id = :id");
+
         $db->execute([':id' => $productId]);
     }
       
@@ -162,6 +179,20 @@ class iPadStock implements Apple
     public function deleteProduct(int $productId): void
     {
         $db = $this->pdo->prepare("DELETE FROM products WHERE id = :id");
+        $db->execute([':id' => $productId]);
+    }
+
+    public function addOneToStock(int $productId): void
+    {
+        $db = $this->pdo->prepare("UPDATE products SET in_stock = in_stock + 1 WHERE id = :id");
+
+        $db->execute([':id' => $productId]);
+    }
+
+    public function removeOneToStock(int $productId): void
+    {
+        $db = $this->pdo->prepare("UPDATE products SET in_stock = in_stock - 1 WHERE id = :id");
+
         $db->execute([':id' => $productId]);
     }
     
