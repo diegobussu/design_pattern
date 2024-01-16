@@ -37,7 +37,7 @@ if (!empty($_POST)) {
             $stock = new AppleStock($db);
             $loggingObserver = new Logs();
 
-            $stock->addObserver($loggingObserver);
+            $stock->addObserver($loggingObserver); // appel de l'observateur
 
             // Récupération des valeurs du formulaire
             $model = $_POST['model'];
@@ -47,7 +47,7 @@ if (!empty($_POST)) {
             $in_stock = $_POST['in_stock'];
 
             // Ajout du produit dans la base de données
-            $stock->addProduct($model, $color, $capacity, $releaseYear, $in_stock);
+            $stock->addProduct($model, $color, $capacity, $releaseYear, $in_stock); // appel de la fonction qui ajoute un produit
 
             flash_in('success', 'Produit ajouté !');
             header('Location: index.php');
@@ -63,12 +63,12 @@ if (!empty($_POST)) {
         $stock = new AppleStock($db);
         $loggingObserver = new Logs();
 
-        $stock->addObserver($loggingObserver);
+        $stock->addObserver($loggingObserver); // appel de l'observateur
 
         if ($_POST['form'] === 'add') {
-            $stock->addOneToStock($productId);
+            $stock->addOneToStock($productId); // appel de la fonction qui ajoute 1 en stock
         } elseif ($_POST['form'] === 'remove') {
-            $stock->removeOneToStock($productId);
+            $stock->removeOneToStock($productId); // appel de la fonction qui supprime 1 en stock
         }
 
         flash_in('success', 'Stock mis à jour !');
@@ -85,8 +85,8 @@ if (!empty($_POST)) {
         $stock = new AppleStock($db);
         $loggingObserver = new Logs();
 
-        $stock->addObserver($loggingObserver);
-        $stock->deleteProduct($deleteId);
+        $stock->addObserver($loggingObserver); // appel de l'observateur
+        $stock->deleteProduct($deleteId); // appel de la fonction qui supprime un produit
 
         flash_in('success', 'Produit supprimé !');
         header('Location: index.php');
