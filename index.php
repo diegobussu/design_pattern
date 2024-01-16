@@ -29,21 +29,25 @@ $read->execute();
                 </tr>
             </thead>
             <tbody>
-                <?php while($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                <tr>
-                    <td><?= $data['id'] ?></td>
-                    <td><?= $data['model'] ?></td>
-                    <td><?= $data['color'] ?></td>
-                    <td><?= $data['release_year'] ?></td>
-                    <td><?= $data['capacity'] ?></td>
-                    <td>
-                        <form method="POST" action="<?= $_SERVER['PHP_SELF'];?>">
-                            <input type="hidden" name="delete_id" value="<?= $data['id']; ?>">
-                            <input type="hidden" name="model" value="<?= $data['model']; ?>">
-                            <button type="submit" name="form" value="delete">x</button>
-                        </form>
-                    </td>
-                </tr>
+                <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
+                    <?php
+                    // Instanciez un objet Iphone avec les données de la ligne actuelle
+                    $iphone = new Iphone($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year']);
+                    ?>
+                    <tr>
+                        <td><?= $iphone->getId() ?></td>
+                        <td><?= $iphone->getName() ?></td>
+                        <td><?= $iphone->getColor() ?></td>
+                        <td><?= $iphone->getReleaseYear() ?></td>
+                        <td><?= $iphone->getCapacity() ?></td>
+                        <td>
+                            <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">
+                                <input type="hidden" name="delete_id" value="<?= $iphone->getId(); ?>">
+                                <input type="hidden" name="model" value="<?= $iphone->getName(); ?>">
+                                <button type="submit" name="form" value="delete">x</button>
+                            </form>
+                        </td>
+                    </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>

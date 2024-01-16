@@ -35,12 +35,12 @@ class Iphone implements Product
 
     public function getName(): string
     {
-        return "Iphone " . $this->model;
+        return $this->model;
     }
 
     public function getReleaseYear(): string
     {
-        return "Année de sortie " . $this->release_year;
+        return $this->release_year;
     }
 
     public function getColor(): string
