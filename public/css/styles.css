@@ -1,73 +1,84 @@
+/* public/css/styles.css */
+
 body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+    background-color:bisque;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.modal-content {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    width: 70%;
-    max-width: 450px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-height: 600px;
-    overflow-y: auto;
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #555;
-}
-
-h2 {
-    color: black;
-    margin: 0 0 20px;
-    font-size: 24px;
-}
-
-.form-group {
     margin-bottom: 20px;
 }
-  
-label {
-    color: black;
-    font-weight: bold;
-    margin-bottom: 1px;
+
+table {
+    width: 100%;
+    margin-top: 20px;
 }
 
-.draggable {
-    cursor: grab;
+th, td {
+    padding: 15px;
+    text-align: left;
 }
-  
-.draggable:active {
-    cursor: grabbing;
+
+th {
+    background-color: #c26f6f;
+}
+
+tr:hover {
+    background-color: #337ab7;
 }
 
 .btn-save {
-    background-color: #0c419a;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #5cb85c; /* Couleur verte de Bootstrap */
     color: #fff;
     border: none;
-    padding: 10px 20px;
     cursor: pointer;
-    font-size: 18px;
     border-radius: 5px;
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transition: background-color 0.3s ease;
 }
-  
+
 .btn-save:hover {
-    background-color: #175ACD;
+    background-color: #4cae4c; /* Couleur verte foncée de Bootstrap au survol */
 }
+
+/* Styles spécifiques pour le formulaire modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
