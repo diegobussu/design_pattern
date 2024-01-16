@@ -35,6 +35,9 @@ if (!empty($_POST)) {
 
         if (!$error) {
             $stock = new AppleStock($db);
+            $loggingObserver = new Logs();
+
+            $stock->addObserver($loggingObserver);
 
             // Récupération des valeurs du formulaire
             $model = $_POST['model'];
@@ -58,7 +61,10 @@ if (!empty($_POST)) {
         $productId = $_POST['product_id'];
 
         $stock = new AppleStock($db);
-        
+        $loggingObserver = new Logs();
+
+        $stock->addObserver($loggingObserver);
+
         if ($_POST['form'] === 'add') {
             $stock->addOneToStock($productId);
         } elseif ($_POST['form'] === 'remove') {
@@ -77,7 +83,9 @@ if (!empty($_POST)) {
         $deleteId = $_POST['delete_id'];
 
         $stock = new AppleStock($db);
+        $loggingObserver = new Logs();
 
+        $stock->addObserver($loggingObserver);
         $stock->deleteProduct($deleteId);
 
         flash_in('success', 'Produit supprimé !');
