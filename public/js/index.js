@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() { 
+
+    // Gestion de la fênetre de création d'un produit
     const modal = document.getElementById("createModal");
     const createProduct = document.getElementById("createProduct");
     const closeModal = document.getElementById("closeModal");
