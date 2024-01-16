@@ -190,4 +190,38 @@ class Logs implements StockObserver
     }
 }
 
+// Interface incompatible
+interface IncompatibleProduct
+{
+    public function getIDNumber(): int;
+    public function getModelName(): string;
+    public function getYearOfRelease(): string;
+}
+
+// Adapter pour convertir AppleProduct en IncompatibleProduct
+class AppleProductIncompatibleAdapter implements IncompatibleProduct
+{
+    private $appleProduct;
+
+    public function __construct(AppleProduct $appleProduct)
+    {
+        $this->appleProduct = $appleProduct;
+    }
+
+    public function getIDNumber(): int
+    {
+        return $this->appleProduct->getId();
+    }
+
+    public function getModelName(): string
+    {
+        return $this->appleProduct->getName();
+    }
+
+    public function getYearOfRelease(): string
+    {
+        return $this->appleProduct->getReleaseYear();
+    }
+}
+
 ?>
