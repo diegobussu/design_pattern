@@ -33,16 +33,23 @@ if (!empty($_POST)) {
             $stock = null;
 
             if (strpos($modelName, 'iphone') !== false) {
-                $stock = new iPhoneStock();
+                $stock = new iPhoneStock($db);
             } elseif (strpos($modelName, 'ipad') !== false) {
-                $stock = new iPadStock();
+                $stock = new iPadStock($db);
             } else {
                 flash_in('error', 'Modèle non pris en charge.');
                 header('Location: index.php');
                 exit();
             }
 
-            $stock->addProduct($_POST['model'], $_POST['color'], (int)$_POST['capacity'], $_POST['release_year']);
+            // Récupération des valeurs du formulaire
+            $model = $_POST['model'];
+            $color = $_POST['color'];
+            $capacity = (int)$_POST['capacity'];
+            $releaseYear = $_POST['release_year'];
+
+            // Ajout du produit dans la base de données
+            $stock->addProduct($model, $color, $capacity, $releaseYear);
 
             flash_in('success', 'Produit ajouté !');
             header('Location: index.php');
@@ -59,9 +66,9 @@ if (!empty($_POST)) {
         $stock = null;
 
         if (strpos($modelName, 'iphone') !== false) {
-            $stock = new iPhoneStock();
+            $stock = new iPhoneStock($db);
         } elseif (strpos($modelName, 'ipad') !== false) {
-            $stock = new iPadStock();
+            $stock = new iPadStock($db);
         } else {
             flash_in('error', 'Modèle non pris en charge.');
             header('Location: index.php');

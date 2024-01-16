@@ -3,7 +3,7 @@
 // Interface représentant le produit que le stock va gérer
 interface Product
 {
-    public function getId(): int; // Nouvelle méthode pour obtenir l'ID
+    public function getId(): int;
     public function getName(): string;
     public function getReleaseYear(): string;
     public function getColor(): string;
@@ -57,7 +57,7 @@ class Iphone implements Product
 // Class for Ipad product
 class Ipad implements Product
 {
-    private $id; // Nouveau champ pour stocker l'ID
+    private $id;
     private $model;
     private $color;
     private $capacity;
@@ -72,7 +72,7 @@ class Ipad implements Product
         $this->release_year = $release_year;
     }
 
-    public function getId(): int // Implémentation de la méthode getId
+    public function getId(): int
     {
         return $this->id;
     }
@@ -102,89 +102,64 @@ class Ipad implements Product
 interface Apple
 {
     public function addProduct(string $model, string $color, int $capacity, string $releaseYear): void;
-    public function getProduct(string $productName): ?Product;
-    public function updateProduct(int $productId, Product $updatedProduct): void;
-    public function deleteProduct(int $productId): void;
-    public function getProductById(int $productId): ?Product;
 }
 
 class iPhoneStock implements Apple
 {
-    private $products = [];
+    private $pdo;
+    
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
 
     public function addProduct(string $model, string $color, int $capacity, string $releaseYear): void
     {
-        // Génération d'un ID unique pour chaque produit
-        $id = uniqid();
-        $product = new Iphone($id, $model, $color, $capacity, $releaseYear);
-        $this->products[$product->getId()] = $product;
-    }
-
-    public function getProduct(string $productName): ?Product
-    {
-        foreach ($this->products as $product) {
-            if ($product->getName() === $productName) {
-                return $product;
-            }
-        }
-        return null;
-    }
-
-    public function updateProduct(int $productId, Product $updatedProduct): void
-    {
-        if (isset($this->products[$productId])) {
-            $this->products[$productId] = $updatedProduct;
-        }
-    }
+        $db = $this->pdo->prepare("INSERT INTO products (model, color, capacity, release_year) VALUES (:model, :color, :capacity, :releaseYear)");
+    
+        $db->bindParam(':model', $model);
+        $db->bindParam(':color', $color);
+        $db->bindParam(':capacity', $capacity);
+        $db->bindParam(':releaseYear', $releaseYear);
+    
+        $db->execute();
+    } 
 
     public function deleteProduct(int $productId): void
     {
-        unset($this->products[$productId]);
-    }
-
-    public function getProductById(int $productId): ?Product
-    {
-        return $this->products[$productId] ?? null;
-    }
+        $db = $this->pdo->prepare("DELETE FROM products WHERE id = :id");
+        $db->bindParam(':id', $productId);
+        $db->execute();
+    }    
 }
 
 class iPadStock implements Apple
 {
-    private $products = [];
+    private $pdo;
+    
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
 
     public function addProduct(string $model, string $color, int $capacity, string $releaseYear): void
     {
-        // Génération d'un ID unique pour chaque produit
-        $id = uniqid();
-        $product = new Ipad($id, $model, $color, $capacity, $releaseYear);
-        $this->products[$product->getId()] = $product;
-    }
-
-    public function getProduct(string $productName): ?Product
-    {
-        foreach ($this->products as $product) {
-            if ($product->getName() === $productName) {
-                return $product;
-            }
-        }
-        return null;
-    }
-
-    public function updateProduct(int $productId, Product $updatedProduct): void
-    {
-        if (isset($this->products[$productId])) {
-            $this->products[$productId] = $updatedProduct;
-        }
-    }
-
+        $db = $this->pdo->prepare("INSERT INTO products (model, color, capacity, release_year) VALUES (:model, :color, :capacity, :releaseYear)");
+    
+        $db->bindParam(':model', $model);
+        $db->bindParam(':color', $color);
+        $db->bindParam(':capacity', $capacity);
+        $db->bindParam(':releaseYear', $releaseYear);
+    
+        $db->execute();
+    }   
+    
     public function deleteProduct(int $productId): void
     {
-        unset($this->products[$productId]);
+        $db = $this->pdo->prepare("DELETE FROM products WHERE id = :id");
+        $db->bindParam(':id', $productId);
+        $db->execute();
     }
-
-    public function getProductById(int $productId): ?Product
-    {
-        return $this->products[$productId] ?? null;
-    }
+    
 }
 ?>
