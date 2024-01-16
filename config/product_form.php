@@ -7,7 +7,7 @@ if (!empty($_POST)) {
         $_POST = array_map('trim', $_POST);
         $error = false;
 
-        if (empty($_POST['model']) || empty($_POST['color']) || empty($_POST['capacity']) || empty($_POST['release_year'])) {
+        if (empty($_POST['model']) || empty($_POST['color']) || empty($_POST['capacity']) || empty($_POST['release_year']) || empty($_POST['in_stock'])) {
             $error = true;
             flash_in('error', 'Tous les champs sont requis.');
         }
@@ -15,6 +15,11 @@ if (!empty($_POST)) {
         if (!is_numeric($_POST['capacity']) || $_POST['capacity'] < 1 || $_POST['capacity'] > 1000) {
             $error = true;
             flash_in('error', 'La capacité doit être un nombre compris entre 1 et 1000.');
+        }
+
+        if (!is_numeric($_POST['in_stock']) || $_POST['in_stock'] < 1 || $_POST['in_stock'] > 999999) {
+            $error = true;
+            flash_in('error', 'Le nombre en stock doit être un nombre compris entre 1 et 999 999.');
         }
 
         if (strlen($_POST['model']) > 30 || strlen($_POST['color']) > 30) {
@@ -45,11 +50,12 @@ if (!empty($_POST)) {
             // Récupération des valeurs du formulaire
             $model = $_POST['model'];
             $color = $_POST['color'];
-            $capacity = (int)$_POST['capacity'];
+            $capacity = $_POST['capacity'];
             $releaseYear = $_POST['release_year'];
+            $in_stock = $_POST['in_stock'];
 
             // Ajout du produit dans la base de données
-            $stock->addProduct($model, $color, $capacity, $releaseYear);
+            $stock->addProduct($model, $color, $capacity, $releaseYear, $in_stock);
 
             flash_in('success', 'Produit ajouté !');
             header('Location: index.php');

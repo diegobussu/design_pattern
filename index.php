@@ -16,7 +16,7 @@ $read->execute();
     </head>
     <body>
         <?php include('partials/header.php'); ?><br>
-
+        <h2>Gestion du stock de Apple</h2>
         <table>
             <thead>
                 <tr>
@@ -25,6 +25,7 @@ $read->execute();
                     <th>Couleur</th>
                     <th>Année de sortie</th>
                     <th>Capacité</th>
+                    <th>En stock</th>
                     <th>Supprimer</th>
                 </tr>
             </thead>
@@ -32,7 +33,7 @@ $read->execute();
                 <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
                     <?php
                     // Instanciez un objet Iphone avec les données de la ligne actuelle
-                    $iphone = new Iphone($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year']);
+                    $iphone = new Iphone($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
                     ?>
                     <tr>
                         <td><?= $iphone->getId() ?></td>
@@ -40,6 +41,7 @@ $read->execute();
                         <td><?= $iphone->getColor() ?></td>
                         <td><?= $iphone->getReleaseYear() ?></td>
                         <td><?= $iphone->getCapacity() ?></td>
+                        <td><?= $iphone->getInStock() ?></td>
                         <td>
                             <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">
                                 <input type="hidden" name="delete_id" value="<?= $iphone->getId(); ?>">
@@ -70,7 +72,10 @@ $read->execute();
                     <input type="number" id="capacity" name="capacity"></input><br><br>
 
                     <label for="release_year">Année de sortie :</label>
-                    <input type="date" id="release_year" name="release_year"></input>
+                    <input type="date" id="release_year" name="release_year"></input><br><br>
+
+                    <label for="in_stock">Nbr en stock :</label>
+                    <input type="number" id="in_stock" name="in_stock"></input><br><br>
                 </div>
 
                 <div class="form-group">
