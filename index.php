@@ -30,13 +30,7 @@ $read->execute();
             </thead>
             <tbody>
                 <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                <?php
-                if (strpos($data['model'], 'iPad') === false) {
-                    $product = new Iphone($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
-                } else {
-                    $product = new Ipad($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
-                }
-                ?>
+                <?php $product = new AppleProduct($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']); ?>
                 <tr>
                     <td><?= $product->getId() ?></td>
                     <td><?= $product->getName() ?></td>
