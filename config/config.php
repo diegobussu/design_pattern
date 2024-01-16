@@ -4,7 +4,7 @@ session_start();
 
 define("SQL_HOST","localhost");
 define("SQL_USER","root");
-define("SQL_PASS",""); // root for mac 
+define("SQL_PASS","root"); // root for mac 
 define("SQL_DBNAME","apple_stock");
 
 try{
