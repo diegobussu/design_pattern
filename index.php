@@ -37,16 +37,20 @@ $read->execute();
                     $product = new Ipad($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
                 }
                 ?>
-                <tr id="product<?= $product->getId(); ?>">
+                <tr>
                     <td><?= $product->getId() ?></td>
                     <td><?= $product->getName() ?></td>
                     <td><?= $product->getColor() ?></td>
                     <td><?= $product->getReleaseYear() ?></td>
                     <td><?= $product->getCapacity() ?></td>
                     <td>
-                        <button id="removeOne">+</button>
-                        <span id="stock<?= $product->getId(); ?>"><?= $product->getInStock() ?></span>
-                        <button id="addOne">-</button>
+                        <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">
+                            <button type="submit" name="form" value="remove">-</button>
+                            <input type="hidden" name="product_id" value="<?= $product->getId(); ?>">
+                            <input type="hidden" name="product_name" value="<?= $product->getName(); ?>">
+                            <span id="stock"><?= $product->getInStock() ?></span>
+                            <button type="submit" name="form" value="add">+</button>
+                        </form>
                     </td>
                     <td>
                         <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">

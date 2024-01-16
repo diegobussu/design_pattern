@@ -153,9 +153,17 @@ class iPhoneStock implements Apple
 
     public function removeOneToStock(int $productId): void
     {
-        $db = $this->pdo->prepare("UPDATE products SET in_stock = in_stock - 1 WHERE id = :id");
-
-        $db->execute([':id' => $productId]);
+        try {
+            $db = $this->pdo->prepare("UPDATE products SET in_stock = in_stock - 1 WHERE id = :id");
+            $db->execute([':id' => $productId]);
+        } catch (PDOException $e) {
+            // Handle the exception (log, display an error message, etc.)
+            // Example: log the error and redirect to an error page
+            error_log('Error updating stock: ' . $e->getMessage());
+            flash_in('error', 'Error updating stock.');
+            header('Location: error_page.php');
+            exit();
+        }
     }
       
 }

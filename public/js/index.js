@@ -52,16 +52,4 @@ document.addEventListener('DOMContentLoaded', function() {
             alert.style.display = "none";
         });
     }, 2000);
-
-    // Gestion du stock par produit
-    const removeOne = document.getElementById("removeOne");
-    const addOne = document.getElementById("addOne");
-
-    removeOne.addEventListener("click", () => {
-        alert("Action non disponible.");
-    });
-
-    addOne.addEventListener("click", () => {
-        alert("Action non disponible.");
-    });
 });

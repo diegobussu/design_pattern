@@ -63,6 +63,36 @@ if (!empty($_POST)) {
         }
     }
 
+    // GESTION DU STOCK
+    if (isset($_POST['form']) && ($_POST['form'] === 'add') || ($_POST['form'] === 'remove')) {
+        
+        $productId = $_POST['product_id'];
+
+        $modelName = strtolower($_POST['product_name']);
+        $stock = null;
+
+        if (strpos($modelName, 'iphone') !== false) {
+            $stock = new iPhoneStock($db);
+        } elseif (strpos($modelName, 'ipad') !== false) {
+            $stock = new iPadStock($db);
+        } else {
+            flash_in('error', 'Modèle non pris en charge.');
+            header('Location: index.php');
+            exit();
+        }
+        
+        if ($_POST['form'] === 'add') {
+            $stock->addOneToStock($productId);
+        } elseif ($_POST['form'] === 'remove') {
+            $stock->removeOneToStock($productId);
+        }
+
+        flash_in('success', 'Stock mis à jour !');
+        header('Location: index.php');
+        exit();
+    }
+
+
     // SUPPRIMER UN PRODUIT
     if (isset($_POST['form']) && $_POST['form'] === 'delete') {
         
