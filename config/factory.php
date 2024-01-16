@@ -117,20 +117,15 @@ class iPhoneStock implements Apple
     {
         $db = $this->pdo->prepare("INSERT INTO products (model, color, capacity, release_year) VALUES (:model, :color, :capacity, :releaseYear)");
     
-        $db->bindParam(':model', $model);
-        $db->bindParam(':color', $color);
-        $db->bindParam(':capacity', $capacity);
-        $db->bindParam(':releaseYear', $releaseYear);
-    
-        $db->execute();
-    } 
+        $db->execute([':model' => $model, ':color' => $color, ':capacity' => $capacity, ':releaseYear' => $releaseYear, ]);
+    }  
 
     public function deleteProduct(int $productId): void
     {
         $db = $this->pdo->prepare("DELETE FROM products WHERE id = :id");
-        $db->bindParam(':id', $productId);
-        $db->execute();
-    }    
+        $db->execute([':id' => $productId]);
+    }
+      
 }
 
 class iPadStock implements Apple
@@ -146,19 +141,13 @@ class iPadStock implements Apple
     {
         $db = $this->pdo->prepare("INSERT INTO products (model, color, capacity, release_year) VALUES (:model, :color, :capacity, :releaseYear)");
     
-        $db->bindParam(':model', $model);
-        $db->bindParam(':color', $color);
-        $db->bindParam(':capacity', $capacity);
-        $db->bindParam(':releaseYear', $releaseYear);
-    
-        $db->execute();
+        $db->execute([':model' => $model, ':color' => $color, ':capacity' => $capacity, ':releaseYear' => $releaseYear, ]);
     }   
     
     public function deleteProduct(int $productId): void
     {
         $db = $this->pdo->prepare("DELETE FROM products WHERE id = :id");
-        $db->bindParam(':id', $productId);
-        $db->execute();
+        $db->execute([':id' => $productId]);
     }
     
 }
