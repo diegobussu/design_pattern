@@ -13,3 +13,9 @@ define("SQL_PASS","root");
 The database name must be "apple_stock" :
 
 ![Import the file in your database](public/bdd/products.sql)
+
+For logs.txt, make sur you have all the access
+
+```bash
+chmod -R 777 logs/logs.txt
+```
