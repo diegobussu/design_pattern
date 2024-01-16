@@ -31,27 +31,30 @@ $read->execute();
             </thead>
             <tbody>
                 <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                    <?php
-                    // Instanciez un objet Iphone avec les données de la ligne actuelle
-                    $iphone = new Iphone($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
-                    ?>
-                    <tr>
-                        <td><?= $iphone->getId() ?></td>
-                        <td><?= $iphone->getName() ?></td>
-                        <td><?= $iphone->getColor() ?></td>
-                        <td><?= $iphone->getReleaseYear() ?></td>
-                        <td><?= $iphone->getCapacity() ?></td>
-                        <td><?= $iphone->getInStock() ?></td>
-                        <td>
-                            <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">
-                                <input type="hidden" name="delete_id" value="<?= $iphone->getId(); ?>">
-                                <input type="hidden" name="model" value="<?= $iphone->getName(); ?>">
-                                <button type="submit" name="form" value="delete">x</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
+                <?php
+                if (strpos($data['model'], 'iPad') === false) {
+                    $product = new Iphone($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
+                } else {
+                    $product = new Ipad($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
+                }
+                ?>
+                <tr>
+                    <td><?= $product->getId() ?></td>
+                    <td><?= $product->getName() ?></td>
+                    <td><?= $product->getColor() ?></td>
+                    <td><?= $product->getReleaseYear() ?></td>
+                    <td><?= $product->getCapacity() ?></td>
+                    <td><?= $product->getInStock() ?></td>
+                    <td>
+                        <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">
+                            <input type="hidden" name="delete_id" value="<?= $product->getId(); ?>">
+                            <input type="hidden" name="model" value="<?= $product->getName(); ?>">
+                            <button type="submit" name="form" value="delete">x</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
         </table>
 
         <button id="createProduct" class="btn-save">Ajouter un produit</button>
