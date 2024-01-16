@@ -34,18 +34,7 @@ if (!empty($_POST)) {
         }
 
         if (!$error) {
-            $modelName = strtolower($_POST['model']);
-            $stock = null;
-
-            if (strpos($modelName, 'iphone') !== false) {
-                $stock = new iPhoneStock($db);
-            } elseif (strpos($modelName, 'ipad') !== false) {
-                $stock = new iPadStock($db);
-            } else {
-                flash_in('error', 'Modèle non pris en charge.');
-                header('Location: index.php');
-                exit();
-            }
+            $stock = new AppleStock($db);
 
             // Récupération des valeurs du formulaire
             $model = $_POST['model'];
@@ -68,18 +57,7 @@ if (!empty($_POST)) {
         
         $productId = $_POST['product_id'];
 
-        $modelName = strtolower($_POST['product_name']);
-        $stock = null;
-
-        if (strpos($modelName, 'iphone') !== false) {
-            $stock = new iPhoneStock($db);
-        } elseif (strpos($modelName, 'ipad') !== false) {
-            $stock = new iPadStock($db);
-        } else {
-            flash_in('error', 'Modèle non pris en charge.');
-            header('Location: index.php');
-            exit();
-        }
+        $stock = new AppleStock($db);
         
         if ($_POST['form'] === 'add') {
             $stock->addOneToStock($productId);
@@ -98,18 +76,7 @@ if (!empty($_POST)) {
         
         $deleteId = $_POST['delete_id'];
 
-        $modelName = strtolower($_POST['model']);
-        $stock = null;
-
-        if (strpos($modelName, 'iphone') !== false) {
-            $stock = new iPhoneStock($db);
-        } elseif (strpos($modelName, 'ipad') !== false) {
-            $stock = new iPadStock($db);
-        } else {
-            flash_in('error', 'Modèle non pris en charge.');
-            header('Location: index.php');
-            exit();
-        }
+        $stock = new AppleStock($db);
 
         $stock->deleteProduct($deleteId);
 
