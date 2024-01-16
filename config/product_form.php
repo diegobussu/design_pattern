@@ -7,24 +7,9 @@ if (!empty($_POST)) {
         $_POST = array_map('trim', $_POST);
         $error = false;
 
-        if (empty($_POST['model'])) {
+        if (empty($_POST['model']) || empty($_POST['color']) || empty($_POST['capacity']) || empty($_POST['release_year'])) {
             $error = true;
-            flash_in('error', 'Le model est requis.');
-        }
-
-        if (empty($_POST['color'])) {
-            $error = true;
-            flash_in('error', 'La couleur est requise.');
-        }
-
-        if (empty($_POST['capacity'])) {
-            $error = true;
-            flash_in('error', 'La capacité est requise.');
-        }
-        
-        if (empty($_POST['release_year'])) {
-            $error = true;
-            flash_in('error', 'La date de sortie est requise.');
+            flash_in('error', 'Tous les champs sont requis.');
         }
 
         if (!is_numeric($_POST['capacity']) || $_POST['capacity'] < 1 || $_POST['capacity'] > 1000) {
