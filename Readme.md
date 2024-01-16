@@ -12,4 +12,4 @@ define("SQL_PASS","root");
 
 The database name must be "apple_stock" :
 
-![File Description](public/bdd/products.sql)
+![Import the file in your database](public/bdd/products.sql)
