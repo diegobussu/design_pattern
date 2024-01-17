@@ -79,7 +79,7 @@ interface StockObserver
     public function stockUpdated(int $productId, int $newStock);
 }
 
-class AppleStock implements Apple
+class Stock implements Apple
 {
     private $pdo;
     private $observers = [];
@@ -190,12 +190,15 @@ class Logs implements StockObserver
     }
 }
 
-// Interface incompatible
+// Interface incompatible (produits android par exemple)
 interface IncompatibleProduct
 {
-    public function getIDNumber(): int;
-    public function getModelName(): string;
-    public function getYearOfRelease(): string;
+    public function getId(): int;
+    public function getName(): string;
+    public function getReleaseYear(): string;
+    public function getColor(): string;
+    public function getCapacity(): int;
+    public function getInStock(): int;
 }
 
 // Adapter pour convertir AppleProduct en IncompatibleProduct
@@ -208,19 +211,34 @@ class AppleProductIncompatibleAdapter implements IncompatibleProduct
         $this->appleProduct = $appleProduct;
     }
 
-    public function getIDNumber(): int
+    public function getId(): int
     {
         return $this->appleProduct->getId();
     }
 
-    public function getModelName(): string
+    public function getName(): string
     {
         return $this->appleProduct->getName();
     }
 
-    public function getYearOfRelease(): string
+    public function getReleaseYear(): string
     {
         return $this->appleProduct->getReleaseYear();
+    }
+
+    public function getColor(): string
+    {
+        return $this->appleProduct->getColor();
+    }
+
+    public function getCapacity(): int
+    {
+        return $this->appleProduct->getCapacity();
+    }
+
+    public function getInStock(): int
+    {
+        return $this->appleProduct->getInStock();
     }
 }
 

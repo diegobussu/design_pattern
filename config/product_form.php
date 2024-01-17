@@ -34,7 +34,7 @@ if (!empty($_POST)) {
         }
 
         if (!$error) {
-            $stock = new AppleStock($db);
+            $stock = new Stock($db);
             $loggingObserver = new Logs();
 
             $stock->addObserver($loggingObserver); // appel de l'observateur
@@ -60,7 +60,7 @@ if (!empty($_POST)) {
         
         $productId = $_POST['product_id'];
 
-        $stock = new AppleStock($db);
+        $stock = new Stock($db);
         $loggingObserver = new Logs();
 
         $stock->addObserver($loggingObserver); // appel de l'observateur
@@ -82,7 +82,7 @@ if (!empty($_POST)) {
         
         $deleteId = $_POST['delete_id'];
 
-        $stock = new AppleStock($db);
+        $stock = new Stock($db);
         $loggingObserver = new Logs();
 
         $stock->addObserver($loggingObserver); // appel de l'observateur
