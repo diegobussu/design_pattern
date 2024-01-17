@@ -1,6 +1,6 @@
 <?php
+// ------------ PATRON DE FABRICATION [INTERFACE] ------------
 
-// Interface représentant le produit que le stock va gérer
 interface Product
 {
     public function getId(): int;
@@ -11,8 +11,9 @@ interface Product
     public function getInStock(): int;
 }
 
-// Class for Iphone product
-class StockProduct implements Product
+// ------------ PATRON DE FABRICATION [CLASS] ------------
+
+class InfosProduct implements Product
 {
     private $id;
     private $model;
@@ -62,7 +63,8 @@ class StockProduct implements Product
     }
 }
 
-// Interface du stock Apple
+// ------------ PATRON DE FABRICATION [INTERFACE] ------------
+
 interface Apple
 {
     public function addProduct(string $model, string $color, int $capacity, string $releaseYear, int $in_stock): void;
@@ -71,13 +73,7 @@ interface Apple
     public function removeOneToStock(int $productId): void;
 }
 
-// Interface de l'observateur
-interface StockObserver
-{
-    public function productAdded(Product $product);
-    public function productDeleted(int $productId);
-    public function stockUpdated(int $productId, int $newStock);
-}
+// ------------ PATRON DE FABRICATION [CLASS] ------------
 
 class Stock implements Apple
 {
@@ -122,7 +118,7 @@ class Stock implements Apple
         $db->execute([':model' => $model, ':color' => $color, ':capacity' => $capacity, ':releaseYear' => $releaseYear, ':in_stock' => $in_stock]);
 
         $productId = $this->pdo->lastInsertId();
-        $addedProduct = new StockProduct($productId, $model, $color, $capacity, $releaseYear, $in_stock);
+        $addedProduct = new InfosProduct($productId, $model, $color, $capacity, $releaseYear, $in_stock);
         $this->notifyProductAdded($addedProduct);
     }  
 
@@ -162,6 +158,17 @@ class Stock implements Apple
     } 
 }
 
+// ------------ PATRON D'OBSERVATION [INTEFACE] ------------
+
+interface StockObserver
+{
+    public function productAdded(Product $product);
+    public function productDeleted(int $productId);
+    public function stockUpdated(int $productId, int $newStock);
+}
+
+// ------------ PATRON D'OBSERVATION [CLASS] ------------
+
 class Logs implements StockObserver
 {
     private $logFile = __DIR__ . '/../config/logs/logs.txt';
@@ -190,7 +197,8 @@ class Logs implements StockObserver
     }
 }
 
-// Interface incompatible (produits android par exemple)
+// ------------ PATRON D'ADAPTATION [INTERFACE] ------------
+
 interface IncompatibleProduct
 {
     public function getId(): int;
@@ -201,16 +209,17 @@ interface IncompatibleProduct
     public function getInStock(): int;
 }
 
-// Adapter pour convertir AppleProduct en IncompatibleProduct
-class ProductAdapter implements IncompatibleProduct
+// ------------ PATRON D'ADAPTATION [CLASS] ------------
+
+class InfosIncompatibleProduct implements IncompatibleProduct
 {
     private $appleProduct;
 
-    public function __construct(StockProduct $appleProduct)
+    public function __construct(InfosProduct $appleProduct)
     {
         $this->appleProduct = $appleProduct;
     }
-
+    
     public function getId(): int
     {
         return $this->appleProduct->getId();
@@ -241,5 +250,4 @@ class ProductAdapter implements IncompatibleProduct
         return $this->appleProduct->getInStock();
     }
 }
-
 ?>
