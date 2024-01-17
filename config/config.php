@@ -16,4 +16,3 @@ try{
 require('factory.php');
 require('functions.php');
 require('product_form.php');
-

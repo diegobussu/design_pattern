@@ -15,7 +15,7 @@ $read->execute();
     </head>
     <body>
         <?php include('partials/header.php'); ?><br>
-        <h2>Gestion du stock de Apple</h2>
+        <h2>Gestion du stock (produits Apple)</h2>
         <table>
             <thead>
                 <tr>
@@ -30,7 +30,10 @@ $read->execute();
             </thead>
             <tbody>
                 <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                <?php $product = new AppleProduct($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']); ?>
+                <?php if (stripos($data['model'], 'iphone') !== false) : ?>
+                <?php
+                    $product = new InfosProduct($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
+                ?>
                 <tr>
                     <td><?= $product->getId() ?></td>
                     <td><?= $product->getName() ?></td>
@@ -54,6 +57,62 @@ $read->execute();
                         </form>
                     </td>
                 </tr>
+            <?php endif; ?>
+            <?php endwhile; ?>
+        </tbody>
+        </table><br><br>
+
+        <h2>Gestion du stock (produits incompatible)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Couleur</th>
+                    <th>Année de sortie</th>
+                    <th>Capacité</th>
+                    <th>En stock</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $read->execute(); while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
+                <?php if (stripos($data['model'], 'iphone') === false) : ?>
+                <?php
+                    $appleProduct = new InfosProduct(
+                        $data['id'],
+                        $data['model'],
+                        $data['color'],
+                        $data['capacity'],
+                        $data['release_year'],
+                        $data['in_stock']
+                    );
+                    $product = new InfosIncompatibleProduct($appleProduct);
+                ?>
+                <tr>
+                    <td><?= $product->getId() ?></td>
+                    <td><?= $product->getName() ?></td>
+                    <td><?= $product->getColor() ?></td>
+                    <td><?= $product->getReleaseYear() ?></td>
+                    <td><?= $product->getCapacity() ?></td>
+                    <td>
+                        <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">
+                            <button type="submit" name="form" value="remove">-</button>
+                            <input type="hidden" name="product_id" value="<?= $product->getId(); ?>">
+                            <input type="hidden" name="product_name" value="<?= $product->getName(); ?>">
+                            <span id="stock"><?= $product->getInStock() ?></span>
+                            <button type="submit" name="form" value="add">+</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="<?= $_SERVER['PHP_SELF']; ?>">
+                            <input type="hidden" name="delete_id" value="<?= $product->getId(); ?>">
+                            <input type="hidden" name="model" value="<?= $product->getName(); ?>">
+                            <button type="submit" name="form" value="delete">x</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endif; ?>
             <?php endwhile; ?>
         </tbody>
         </table>
@@ -61,9 +120,9 @@ $read->execute();
         <button id="createProduct" class="btn-save">Ajouter un produit</button>
 
         <div class="modal draggable" id="createModal">
-        <div class="modal-content">
+            <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
-            <h2>Ajouter un produit</h2>
+            <h2>Ajouter un produit apple</h2>
             <form method="POST" action="<?= $_SERVER['PHP_SELF'];?>">
                 <div class="form-group">
                     <label for="model">Modèle :</label>
@@ -88,6 +147,5 @@ $read->execute();
             </form>
         </div>
     </div>
-
     </body>
 </html>

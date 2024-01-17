@@ -1,6 +1,6 @@
 <?php
+// ------------ PATRON DE FABRICATION [INTERFACE] ------------
 
-// Interface représentant le produit que le stock va gérer
 interface Product
 {
     public function getId(): int;
@@ -11,8 +11,9 @@ interface Product
     public function getInStock(): int;
 }
 
-// Class for Iphone product
-class AppleProduct implements Product
+// ------------ PATRON DE FABRICATION [CLASS] ------------
+
+class InfosProduct implements Product
 {
     private $id;
     private $model;
@@ -62,7 +63,8 @@ class AppleProduct implements Product
     }
 }
 
-// Interface du stock Apple
+// ------------ PATRON DE FABRICATION [INTERFACE] ------------
+
 interface Apple
 {
     public function addProduct(string $model, string $color, int $capacity, string $releaseYear, int $in_stock): void;
@@ -71,15 +73,9 @@ interface Apple
     public function removeOneToStock(int $productId): void;
 }
 
-// Interface de l'observateur
-interface StockObserver
-{
-    public function productAdded(Product $product);
-    public function productDeleted(int $productId);
-    public function stockUpdated(int $productId, int $newStock);
-}
+// ------------ PATRON DE FABRICATION [CLASS] ------------
 
-class AppleStock implements Apple
+class Stock implements Apple
 {
     private $pdo;
     private $observers = [];
@@ -122,7 +118,7 @@ class AppleStock implements Apple
         $db->execute([':model' => $model, ':color' => $color, ':capacity' => $capacity, ':releaseYear' => $releaseYear, ':in_stock' => $in_stock]);
 
         $productId = $this->pdo->lastInsertId();
-        $addedProduct = new AppleProduct($productId, $model, $color, $capacity, $releaseYear, $in_stock);
+        $addedProduct = new InfosProduct($productId, $model, $color, $capacity, $releaseYear, $in_stock);
         $this->notifyProductAdded($addedProduct);
     }  
 
@@ -162,6 +158,17 @@ class AppleStock implements Apple
     } 
 }
 
+// ------------ PATRON D'OBSERVATION [INTEFACE] ------------
+
+interface StockObserver
+{
+    public function productAdded(Product $product);
+    public function productDeleted(int $productId);
+    public function stockUpdated(int $productId, int $newStock);
+}
+
+// ------------ PATRON D'OBSERVATION [CLASS] ------------
+
 class Logs implements StockObserver
 {
     private $logFile = __DIR__ . '/../config/logs/logs.txt';
@@ -190,38 +197,57 @@ class Logs implements StockObserver
     }
 }
 
-// Interface incompatible
+// ------------ PATRON D'ADAPTATION [INTERFACE] ------------
+
 interface IncompatibleProduct
 {
-    public function getIDNumber(): int;
-    public function getModelName(): string;
-    public function getYearOfRelease(): string;
+    public function getId(): int;
+    public function getName(): string;
+    public function getReleaseYear(): string;
+    public function getColor(): string;
+    public function getCapacity(): int;
+    public function getInStock(): int;
 }
 
-// Adapter pour convertir AppleProduct en IncompatibleProduct
-class AppleProductIncompatibleAdapter implements IncompatibleProduct
+// ------------ PATRON D'ADAPTATION [CLASS] ------------
+
+class InfosIncompatibleProduct implements IncompatibleProduct
 {
     private $appleProduct;
 
-    public function __construct(AppleProduct $appleProduct)
+    public function __construct(InfosProduct $appleProduct)
     {
         $this->appleProduct = $appleProduct;
     }
-
-    public function getIDNumber(): int
+    
+    public function getId(): int
     {
         return $this->appleProduct->getId();
     }
 
-    public function getModelName(): string
+    public function getName(): string
     {
         return $this->appleProduct->getName();
     }
 
-    public function getYearOfRelease(): string
+    public function getReleaseYear(): string
     {
         return $this->appleProduct->getReleaseYear();
     }
-}
 
+    public function getColor(): string
+    {
+        return $this->appleProduct->getColor();
+    }
+
+    public function getCapacity(): int
+    {
+        return $this->appleProduct->getCapacity();
+    }
+
+    public function getInStock(): int
+    {
+        return $this->appleProduct->getInStock();
+    }
+}
 ?>
