@@ -30,10 +30,9 @@ $read->execute();
             </thead>
             <tbody>
                 <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                <?php 
-                if ($data['model'] === 'apple') {
+                <?php if (stripos($data['model'], 'iphone') !== false) : ?>
+                <?php
                     $product = new InfosProduct($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
-                } 
                 ?>
                 <tr>
                     <td><?= $product->getId() ?></td>
@@ -58,6 +57,7 @@ $read->execute();
                         </form>
                     </td>
                 </tr>
+            <?php endif; ?>
             <?php endwhile; ?>
         </tbody>
         </table><br><br>
@@ -76,11 +76,18 @@ $read->execute();
                 </tr>
             </thead>
             <tbody>
-                <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                <?php 
-                    if ($data['model'] !== 'apple') {
-                        $product = new InfosIncompatibleProduct($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
-                    } 
+                <?php $read->execute(); while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
+                <?php if (stripos($data['model'], 'iphone') === false) : ?>
+                <?php
+                    $appleProduct = new InfosProduct(
+                        $data['id'],
+                        $data['model'],
+                        $data['color'],
+                        $data['capacity'],
+                        $data['release_year'],
+                        $data['in_stock']
+                    );
+                    $product = new InfosIncompatibleProduct($appleProduct);
                 ?>
                 <tr>
                     <td><?= $product->getId() ?></td>
@@ -105,6 +112,7 @@ $read->execute();
                         </form>
                     </td>
                 </tr>
+            <?php endif; ?>
             <?php endwhile; ?>
         </tbody>
         </table>
