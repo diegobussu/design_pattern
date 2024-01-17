@@ -12,7 +12,7 @@ interface Product
 }
 
 // Class for Iphone product
-class AppleProduct implements Product
+class StockProduct implements Product
 {
     private $id;
     private $model;
@@ -122,7 +122,7 @@ class Stock implements Apple
         $db->execute([':model' => $model, ':color' => $color, ':capacity' => $capacity, ':releaseYear' => $releaseYear, ':in_stock' => $in_stock]);
 
         $productId = $this->pdo->lastInsertId();
-        $addedProduct = new AppleProduct($productId, $model, $color, $capacity, $releaseYear, $in_stock);
+        $addedProduct = new StockProduct($productId, $model, $color, $capacity, $releaseYear, $in_stock);
         $this->notifyProductAdded($addedProduct);
     }  
 
@@ -206,7 +206,7 @@ class AppleProductIncompatibleAdapter implements IncompatibleProduct
 {
     private $appleProduct;
 
-    public function __construct(AppleProduct $appleProduct)
+    public function __construct(StockProduct $appleProduct)
     {
         $this->appleProduct = $appleProduct;
     }
