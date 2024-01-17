@@ -30,7 +30,7 @@ $read->execute();
             </thead>
             <tbody>
                 <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                <?php if (stripos($data['model'], 'iphone') !== false) : ?>
+                <?php if (stripos($data['model'], 'apple') !== false) : ?>
                 <?php
                     $product = new InfosProduct($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']);
                 ?>
@@ -77,7 +77,7 @@ $read->execute();
             </thead>
             <tbody>
                 <?php $read->execute(); while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                <?php if (stripos($data['model'], 'iphone') === false) : ?>
+                <?php if (stripos($data['model'], 'apple') === false) : ?>
                 <?php
                     $appleProduct = new InfosProduct(
                         $data['id'],

@@ -11,3 +11,5 @@ Produit ajouté : Samsung S10 (ID: 17)
 Produit ajouté : Samsung S10 (ID: 18)
 Stock mis à jour pour le produit n°14. Nouveau stock : 11
 Stock mis à jour pour le produit n°14. Nouveau stock : 10
+Produit n°14 supprimé !
+Produit ajouté : Apple Iphone 11 Pro (ID: 19)
