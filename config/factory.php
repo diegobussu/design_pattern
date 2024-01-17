@@ -202,7 +202,7 @@ interface IncompatibleProduct
 }
 
 // Adapter pour convertir AppleProduct en IncompatibleProduct
-class AppleProductIncompatibleAdapter implements IncompatibleProduct
+class ProductAdapter implements IncompatibleProduct
 {
     private $appleProduct;
 

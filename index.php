@@ -104,7 +104,7 @@ $read->execute();
             </thead>
             <tbody>
                 <?php while ($data = $read->fetch(PDO::FETCH_ASSOC)) : ?>
-                <?php $product = new StockProduct($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']); ?>
+                <?php $product = new ProductAdapter($data['id'], $data['model'], $data['color'], $data['capacity'], $data['release_year'], $data['in_stock']); ?>
                 <tr>
                     <td><?= $product->getId() ?></td>
                     <td><?= $product->getName() ?></td>
